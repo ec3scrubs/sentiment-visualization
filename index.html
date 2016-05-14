@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>API Test</title>
+    <title>Sentiment Analysis Visualization</title>
 
     <style>
 		body {
@@ -44,26 +44,26 @@
 			{ label: "Data Set 3", x: [1, 2, 3, 4, 5], y: [0, 1, 4, 9, 16] }
 			];
 		var xy_chart = d3_xy_chart()
-		    .width(960)
-		    .height(500)
-		    .xlabel("X Axis")
-		    .ylabel("Y Axis") ;
+		    .width(1000)
+		    .height(600)
+		    .xlabel("Date")
+		    .ylabel("Aggregate Sentiment") ;
 		var svg = d3.select("body").append("svg")
 		    .datum(data)
 		    .call(xy_chart) ;
 
 		function d3_xy_chart() {
-		    var width = 640,  
-		        height = 480, 
-		        xlabel = "X Axis Label",
-		        ylabel = "Y Axis Label" ;
+		    var width = 640,
+		        height = 480,
+		        xlabel = "Date",
+		        ylabel = "Aggregate Sentiment" ;
 		    
 		    function chart(selection) {
 		        selection.each(function(datasets) {
 		            //
 		            // Create the plot. 
 		            //
-		            var margin = {top: 20, right: 80, bottom: 30, left: 50}, 
+		            var margin = {top: 20, right: 80, bottom: 30, left: 50},
 		                innerwidth = width - margin.left - margin.right,
 		                innerheight = height - margin.top - margin.bottom ;
 		            
@@ -74,8 +74,7 @@
 		            
 		            var y_scale = d3.scale.linear()
 		                .range([innerheight, 0])
-		                .domain([ d3.min(datasets, function(d) { return d3.min(d.y); }),
-		                          d3.max(datasets, function(d) { return d3.max(d.y); }) ]) ;
+		                .domain([-100, 100]) ;
 
 		            var color_scale = d3.scale.category10()
 		                .domain(d3.range(datasets.length)) ;
@@ -125,6 +124,7 @@
 		                .attr("transform", "translate(0," + innerheight + ")") 
 		                .call(x_axis)
 		                .append("text")
+		                .attr("dx", "-0.5em")
 		                .attr("dy", "-.71em")
 		                .attr("x", innerwidth)
 		                .style("text-anchor", "end")
@@ -136,6 +136,7 @@
 		                .append("text")
 		                .attr("transform", "rotate(-90)")
 		                .attr("y", 6)
+		                .attr("dx", "-0.5em")
 		                .attr("dy", "0.71em")
 		                .style("text-anchor", "end")
 		                .text(ylabel) ;
