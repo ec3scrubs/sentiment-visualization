@@ -38,11 +38,13 @@
     <script src="d3.min.js" charset="utf-8"></script>
 
     <script>
-		var data = [
-			{ label: "Data Set 1", x: [0, 1, 2, 3, 4], y: [0, 1, 2, 3, 4] },
-			{ label: "Data Set 2", x: [0, 1, 2, 3, 4], y: [0, 1, 4, 9, 16] },
-			{ label: "Data Set 3", x: [1, 2, 3, 4, 5], y: [0, 1, 4, 9, 16] }
-			];
+		var data = [{ label: "SENTIMENT",
+					x: [0, 1, 2, 3, 4],
+					y: [90, 30, 50, -40, 10] }];
+
+		// TODO: get json from backend
+		//var data = JSON.parse(text);
+
 		var xy_chart = d3_xy_chart()
 		    .width(1000)
 		    .height(600)
@@ -66,12 +68,20 @@
 		            var margin = {top: 20, right: 80, bottom: 30, left: 50},
 		                innerwidth = width - margin.left - margin.right,
 		                innerheight = height - margin.top - margin.bottom ;
-		            
+
 		            var x_scale = d3.scale.linear()
 		                .range([0, innerwidth])
 		                .domain([ d3.min(datasets, function(d) { return d3.min(d.x); }), 
 		                          d3.max(datasets, function(d) { return d3.max(d.x); }) ]) ;
-		            
+
+		            // TODO: dynamically assign this
+		            /*var minDate = new Date(2016, 1, 1),
+		            	maxDate = new Date(2016, 1, 5);
+
+		            var x_scale = d3.time.scale()
+		            	.range([0, innerwidth])
+		            	.domain([minDate, maxDate]) ;*/
+
 		            var y_scale = d3.scale.linear()
 		                .range([innerheight, 0])
 		                .domain([-100, 100]) ;
